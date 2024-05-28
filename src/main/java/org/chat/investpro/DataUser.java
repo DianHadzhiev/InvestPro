@@ -1,7 +1,11 @@
 package org.chat.investpro;
 
+import lombok.Data;
+import lombok.Getter;
+
 import java.util.ArrayList;
 
+@Data
 public class DataUser {
 
     private ArrayList<IinvesteeringsVorm> crypto;
@@ -26,5 +30,43 @@ public class DataUser {
         if (instance == null) return new DataUser();
         else return instance;
     }
+
+    public double getTotalecrypto () {
+        double sum = 0.0;
+        for (IinvesteeringsVorm v : crypto) sum += v.getAankoopPrijs();
+        return sum;
+    }
+
+    public double getTotalaandeel () {
+        double sum = 0.0;
+        for (IinvesteeringsVorm v : aandeel) sum += v.getAankoopPrijs();
+        return sum;
+    }
+
+    public double getTotalobligatie () {
+        double sum = 0.0;
+        for (IinvesteeringsVorm v : obligatie) {
+            sum += v.getAankoopPrijs();
+        }
+        return sum;
+    }
+
+    public double getTotaldiverse () {
+        double sum = 0.0;
+        for (IinvesteeringsVorm v : diverse) {
+            sum += v.getAankoopPrijs();
+        }
+        return sum;
+    }
+
+    public double getTotalspaargeld () {
+        return spaargeld.getAantal();
+    }
+
+    public double totalePortofolio() {
+        double sum = getTotalaandeel() + getTotalobligatie() + getTotaldiverse() +getTotalecrypto();
+        return sum;
+    }
+
 
 }
