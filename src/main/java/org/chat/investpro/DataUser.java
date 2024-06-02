@@ -14,16 +14,16 @@ public class DataUser {
     private ArrayList<IinvesteeringsVorm> diverse;
     private IspaarGeld spaargeld;
 
+    private Server server = new Server();
+
     private static final DataUser instance = new DataUser();
 
     private DataUser () {
-        Server server = new Server();
         crypto = server.reader.readFromCSV("crypto");
         aandeel = server.reader.readFromCSV("aandelen");
         obligatie = server.reader.readFromCSV("obligaties");
         diverse = server.reader.readFromCSV("diverse");
         spaargeld = server.reader.readSpaargeldFromCSV();
-
     }
 
     public static DataUser getInstance () {
@@ -31,7 +31,7 @@ public class DataUser {
         else return instance;
     }
 
-    public double getTotalecrypto () {
+    public double getTotaleCrypto () {
         double sum = 0.0;
         for (IinvesteeringsVorm v : crypto) sum += v.getAankoopPrijs();
         return sum;
@@ -64,9 +64,53 @@ public class DataUser {
     }
 
     public double totalePortofolio() {
-        double sum = getTotalaandeel() + getTotalobligatie() + getTotaldiverse() +getTotalecrypto();
+        double sum = getTotalaandeel() + getTotalobligatie() + getTotaldiverse() +getTotaleCrypto();
         return sum;
     }
 
+    public void addSpaargeld(IspaarGeld spaargeld) {
+        server.writer.writeSpaargeldToCSV(spaargeld);
+    }
+
+    public void addCrypto(IinvesteeringsVorm crypto) {
+        server.writer.writeToCSV(crypto, "crypto");
+    }
+
+    public void addAandeel(IinvesteeringsVorm aandeel) {
+        server.writer.writeToCSV(aandeel, "aandelen");
+    }
+
+    public void addObligatie(IinvesteeringsVorm obligatie) {
+        server.writer.writeToCSV(obligatie, "obligaties");
+    }
+
+    public void addDiverse(IinvesteeringsVorm diverse) {
+        server.writer.writeToCSV(diverse, "diverse");
+    }
+
+    public double berekendividend(Double dividend) {
+        dividend *= 0.15;
+        return dividend;
+    }
+
+    public void updateSpaargeld(IspaarGeld spaargeld) {
+        server.writer.writeSpaargeldToCSV(spaargeld);
+    }
+
+    public void verwijderCrypto(int index, String vorm) {
+        server.editor.verwijderKapitaalvorm(index,vorm);
+    }
+
+    public void verwijderAandeel(int index, String vorm) {
+        server.editor.verwijderKapitaalvorm(index,vorm);
+    }
+
+    public void verwijderObligatie(int index, String vorm) {
+        server.editor.verwijderKapitaalvorm(index,vorm);
+    }
+
+    public void verwijderDiverse(int index, String vorm) {
+        server.editor.verwijderKapitaalvorm(index,vorm);
+    }
 
 }

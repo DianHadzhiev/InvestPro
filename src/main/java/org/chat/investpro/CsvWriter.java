@@ -20,10 +20,9 @@ public class CsvWriter {
         } catch (IOException e) {
             System.out.println("Er is iets missgegaan ");
         }
-
     }
 
-    public void writeSpaargeldToCSV(SpaarGeld spaargeld) {
+    public void writeSpaargeldToCSV(IspaarGeld spaargeld) {
         try {
             String filePath = "spaargeld.csv";
             CSVWriter csvWriter = new CSVWriter((new FileWriter(filePath, false)));
@@ -33,7 +32,6 @@ public class CsvWriter {
             System.out.println();
             System.out.println("Uw spaargeld is opgelslagen");
             csvWriter.close();
-
 
         } catch (IOException e) {
             System.out.println("Er is iets missgegaan ");
