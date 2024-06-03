@@ -8,13 +8,9 @@ import lombok.Data;
 @Data
 public  abstract class IspaarGeld {
 
-    protected String naamValuta;
-    protected double rentePerc, aantal;
+    protected double aantal;
 
-    public IspaarGeld(String naamValuta, double rentePerc, double aantal) {
-        this.naamValuta = naamValuta;
-        this.rentePerc = rentePerc;
+    public IspaarGeld(double aantal) {
         this.aantal = aantal;
-
     }
 }

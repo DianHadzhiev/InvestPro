@@ -3,6 +3,7 @@ package org.chat.investpro;
 import lombok.Data;
 import lombok.Getter;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 @Data
@@ -20,7 +21,7 @@ public class DataUser {
 
     private DataUser () {
         crypto = server.reader.readFromCSV("crypto");
-        aandeel = server.reader.readFromCSV("aandelen");
+        aandeel = server.reader.readFromCSV("aandeel");
         obligatie = server.reader.readFromCSV("obligaties");
         diverse = server.reader.readFromCSV("diverse");
         spaargeld = server.reader.readSpaargeldFromCSV();
@@ -77,7 +78,7 @@ public class DataUser {
     }
 
     public void addAandeel(IinvesteeringsVorm aandeel) {
-        server.writer.writeToCSV(aandeel, "aandelen");
+        server.writer.writeToCSV(aandeel, "aandeel");
     }
 
     public void addObligatie(IinvesteeringsVorm obligatie) {
@@ -86,11 +87,6 @@ public class DataUser {
 
     public void addDiverse(IinvesteeringsVorm diverse) {
         server.writer.writeToCSV(diverse, "diverse");
-    }
-
-    public double berekendividend(Double dividend) {
-        dividend *= 0.15;
-        return dividend;
     }
 
     public void updateSpaargeld(IspaarGeld spaargeld) {
