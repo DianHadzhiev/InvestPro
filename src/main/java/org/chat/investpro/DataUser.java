@@ -15,19 +15,34 @@ public class DataUser {
 
     private Server server = new Server();
 
-    private static DataUser instance = new DataUser();
+    private static DataUser instance = null;
 
     private DataUser () {
-        crypto = server.reader.readFromCSV("crypto");
-        aandeel = server.reader.readFromCSV("aandeel");
-        obligatie = server.reader.readFromCSV("obligaties");
-        diverse = server.reader.readFromCSV("diverse");
-        spaargeld = server.reader.readSpaargeldFromCSV();
+        crypto = server.getReader().readFromCSV("crypto");
+        aandeel = server.getReader().readFromCSV("aandeel");
+        obligatie = server.getReader().readFromCSV("obligatie");
+        diverse = server.getReader().readFromCSV("diverse");
+        spaargeld = server.getReader().readSpaargeldFromCSV();
     }
 
     public static DataUser getInstance () {
         if (instance == null) return new DataUser();
         else return instance;
+    }
+
+    public ArrayList<IinvesteeringsVorm> getVorm(String vorm) {
+        switch (vorm) {
+            case "crypto":
+                return crypto;
+            case "aandeel":
+                return aandeel;
+            case "obligatie":
+                return obligatie;
+            case "diverse":
+                return diverse;
+            default:
+                return null;
+        }
     }
 
     public double getTotaleCrypto () {
@@ -63,44 +78,16 @@ public class DataUser {
         return sum;
     }
 
-    public void addSpaargeld(IspaarGeld spaargeld) {
-        server.writer.writeSpaargeldToCSV(spaargeld);
-    }
-
-    public void addCrypto(IinvesteeringsVorm crypto) {
-        server.writer.writeToCSV(crypto, "crypto");
-    }
-
-    public void addAandeel(IinvesteeringsVorm aandeel) {
-        server.writer.writeToCSV(aandeel, "aandeel");
-    }
-
-    public void addObligatie(IinvesteeringsVorm obligatie) {
-        server.writer.writeToCSV(obligatie, "obligaties");
-    }
-
-    public void addDiverse(IinvesteeringsVorm diverse) {
-        server.writer.writeToCSV(diverse, "diverse");
-    }
-
     public void updateSpaargeld(IspaarGeld spaargeld) {
-        server.writer.writeSpaargeldToCSV(spaargeld);
+        server.getWriter().writeSpaargeldToCSV(spaargeld);
     }
 
-    public void verwijderCrypto(int index, String vorm) {
-        server.editor.verwijderKapitaalvorm(index,vorm);
+    public void addVorm(IinvesteeringsVorm object, String vorm) {
+        server.getWriter().writeToCSV(object, vorm);
     }
 
-    public void verwijderAandeel(int index, String vorm) {
-        server.editor.verwijderKapitaalvorm(index,vorm);
-    }
-
-    public void verwijderObligatie(int index, String vorm) {
-        server.editor.verwijderKapitaalvorm(index,vorm);
-    }
-
-    public void verwijderDiverse(int index, String vorm) {
-        server.editor.verwijderKapitaalvorm(index,vorm);
+    public void verwijderVorm(int index, String vorm) {
+        server.getEditor().verwijderKapitaalvorm(index,vorm);
     }
 
 }
