@@ -36,6 +36,7 @@ public class Client {
             int choice = scanner.nextInt();
             scanner.nextLine();
             makeChoice(choice);
+            scanner.nextLine();
         }
     }
 
@@ -135,28 +136,33 @@ public class Client {
             System.out.println("5. spaargeld");
             System.out.println("6. terug naar hoofdmenu");
             System.out.println("Wat wilt u bekijken?");
-            int keuze =scanner.nextInt();
+            var keuze = scanner.nextInt();
+            scanner.nextLine();
             switch(keuze) {
                 case 1 :
                     clearScreen();
-                    System.out.println(user.getTotalaandeel());
+                    System.out.println("Totaal aandeel: " + user.getTotalaandeel());
                     scanner.nextLine();
                     break;
                 case 2 :
                     clearScreen();
-                    System.out.println(user.getTotaleCrypto());
+                    System.out.println("Totaal crypto: " + user.getTotaleCrypto());
+                    scanner.nextLine();
                     break;
                 case 3:
                     clearScreen();
                     System.out.println(user.getTotalobligatie());
+                    scanner.nextLine();
                     break;
                 case 4 :
                     clearScreen();
                     System.out.println(user.getTotaldiverse());
+                    scanner.nextLine();
                     break;
                 case 5 :
                     clearScreen();
                     System.out.println("Spaargeld: $" + user.getTotalspaargeld());
+                    scanner.nextLine();
                     break;
                 case 6:
                     clearScreen();
@@ -165,6 +171,7 @@ public class Client {
                     break;
                 default:
                     System.out.println("Ongeldige keuze. Probeer opnieuw.");
+                    scanner.nextLine();
                     break;
             }
         }
@@ -344,6 +351,19 @@ public class Client {
         System.out.println("U ontvangt $ " + dividend);
         scanner.nextLine();
         terugNaarHoofdmenu();
+    }
+
+    public void toonWaardeAandelen() {
+        double totalewaarde = 0.0;
+
+        for (IinvesteeringsVorm aandeel : user.getAandeel())  {
+            double aantal = aandeel.getAantal();
+            double waarde = aandeel.getWaardeBijaankoop();
+            totalewaarde += aantal * waarde; 
+            aandeel.toongegevens();
+        }
+        System.out.println("totaal: $" + totalewaarde);
+        
     }
 }
 

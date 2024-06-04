@@ -8,7 +8,7 @@ public class ConcreteFactory implements IinvesteeringsVormFactory{
                 return new Crypto(naam, waardeBijaankoop, aantal, aankoopPrijs);
             case "aandeel":
                 return new Aandeel(naam, waardeBijaankoop, aantal, aankoopPrijs);
-            case "obligatie":
+            case "obligaties":
                 return new Obligatie(naam, waardeBijaankoop, aantal, aankoopPrijs);
             case "diverse":
                 return new Diverse(naam, waardeBijaankoop, aantal, aankoopPrijs);

@@ -1,8 +1,6 @@
 package org.chat.investpro;
 
 import lombok.Data;
-import lombok.Getter;
-
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -17,7 +15,7 @@ public class DataUser {
 
     private Server server = new Server();
 
-    private static final DataUser instance = new DataUser();
+    private static DataUser instance = new DataUser();
 
     private DataUser () {
         crypto = server.reader.readFromCSV("crypto");
@@ -46,17 +44,13 @@ public class DataUser {
 
     public double getTotalobligatie () {
         double sum = 0.0;
-        for (IinvesteeringsVorm v : obligatie) {
-            sum += v.getAankoopPrijs();
-        }
+        for (IinvesteeringsVorm v : obligatie) sum += v.getAankoopPrijs();
         return sum;
     }
 
     public double getTotaldiverse () {
         double sum = 0.0;
-        for (IinvesteeringsVorm v : diverse) {
-            sum += v.getAankoopPrijs();
-        }
+        for (IinvesteeringsVorm v : diverse) sum += v.getAankoopPrijs();
         return sum;
     }
 
