@@ -14,12 +14,14 @@ public class Client {
     private static boolean runningChoice = true;
     private static Menu menu;
     private static MenuActions menuActions;
+    private static PortofolioMenuActions portMenu;
 
     public Client () {
         scanner = new Scanner(System.in);
-        dataManager = new DataManager(factoryInvesteeringsVorm, spaargeldFactory, user);
+        dataManager = new DataManager(factoryInvesteeringsVorm, spaargeldFactory, user, scanner);
         menu = new Menu();
         menuActions = new MenuActions(menu);
+        portMenu = new PortofolioMenuActions(menu);
     }
 
     private static void terugNaarHoofdmenu(){
@@ -38,12 +40,12 @@ public class Client {
             System.out.println("Voer uw keuze in:");
             int choice = scanner.nextInt();
             scanner.nextLine();
-            menuActions.executeMainMenuAction(choice, dataManager, scanner);
+            if (choice == 1) viewPortfolioMenu();
+            else menuActions.executeMainMenuAction(choice, dataManager, scanner);
         }
     }
 
-
-    private static void viewPortfolio() {
+    private static void viewPortfolioMenu() {
         clearScreen();
         while (runningChoice) {
             clearScreen();
@@ -52,22 +54,7 @@ public class Client {
             System.out.println("Voer uw keuze in:");
             var keuze = scanner.nextInt();
             scanner.nextLine();
-            maakPortofolioKeuze(keuze);
+            portMenu.executePortofolioAction(keuze, dataManager, scanner);
         }
     }
-
-    public static void maakPortofolioKeuze(int keuze ) {
-        switch(keuze) {
-            case 1 -> System.out.println("Totaal aandeel: " + dataManager.getUser().getTotalaandeel());
-            case 2 -> System.out.println("Totaal crypto: " + dataManager.getUser().getTotaleCrypto());
-            case 3 -> System.out.println(dataManager.getUser().getTotalobligatie());
-            case 4 -> System.out.println(dataManager.getUser().getTotaldiverse());
-            case 5 -> System.out.println("Spaargeld: $" + dataManager.getUser().getTotalspaargeld());
-            case 6 -> runningChoice = false;
-            default -> System.out.println("Ongeldige keuze. Probeer opnieuw.");
-        }
-        terugNaarHoofdmenu();
-    }
-
-
 }

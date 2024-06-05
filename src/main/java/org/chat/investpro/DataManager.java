@@ -10,11 +10,13 @@ public class DataManager {
     private static IinvesteeringsVormFactory factoryInvesteeringsVorm;
     private static IspaargeldFactory spaargeldFactory;
     private DataUser user;
+    private Scanner scanner;
 
-    public DataManager(IinvesteeringsVormFactory factoryInvesteeringsVorm, IspaargeldFactory spaargeldFactory, DataUser user) {
+    public DataManager(IinvesteeringsVormFactory factoryInvesteeringsVorm, IspaargeldFactory spaargeldFactory, DataUser user,Scanner scanner) {
         this.factoryInvesteeringsVorm = factoryInvesteeringsVorm;
         this.spaargeldFactory = spaargeldFactory;
         this.user = user;
+        this.scanner = scanner;
     }
 
     public void addVorm(Scanner scanner, String vorm) {
@@ -87,13 +89,17 @@ public class DataManager {
         System.out.println("Hoeveel dividend heeft u ontvangen?");
         double dividend = scanner.nextDouble();
         dividend *= 0.15;
-        System.out.println("U ontvangt $ " + dividend);
+        System.out.println("Te betalen belasting" + dividend);
         scanner.nextLine();
     }
 
-    public void viewPortofolio() {
-        System.out.println("Totaal portofeuille: " + user.totalePortofolio());
+    public void viewPortofolioVorm(String form) {
+        System.out.println(form + ":");
         System.out.println();
+        for (IinvesteeringsVorm vorm : user.getVorm(form)) {
+            System.out.println(vorm.getNaam() + ": " + vorm.getAantal());
+        }
+        scanner.nextLine();
     }
 
 }
