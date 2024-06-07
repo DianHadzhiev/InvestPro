@@ -18,6 +18,10 @@ public class DataUser {
     private static DataUser instance = null;
 
     private DataUser () {
+        getAllData();
+    }
+
+    public void getAllData() {
         crypto = server.getReader().readFromCSV("crypto");
         aandeel = server.getReader().readFromCSV("aandeel");
         obligatie = server.getReader().readFromCSV("obligatie");
@@ -70,12 +74,12 @@ public class DataUser {
     }
 
     public double getTotalspaargeld () {
-        return spaargeld.getAantal();
+        if (spaargeld == null) return 0.0;
+        else return spaargeld.getAantal();
     }
 
     public double totalePortofolio() {
-        double sum = getTotalaandeel() + getTotalobligatie() + getTotaldiverse() +getTotaleCrypto();
-        return sum;
+        return getTotalaandeel() + getTotalobligatie() + getTotaldiverse() +getTotaleCrypto();
     }
 
     public void updateSpaargeld(IspaarGeld spaargeld) {

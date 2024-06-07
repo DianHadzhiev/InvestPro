@@ -8,7 +8,7 @@ import java.util.ArrayList;
 public class CsvReader  {
 
     private IinvesteeringsVormFactory factory;
-    private IspaargeldFactory spaargeldFactory = new ConcreteSpaargeld();
+    private IspaargeldFactory spaargeldFactory = new ConcreteSpaargeldFactory();
 
     public ArrayList<IinvesteeringsVorm> readFromCSV(String typeInvest) {
         String filePath = typeInvest + ".csv";

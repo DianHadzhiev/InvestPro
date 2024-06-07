@@ -1,6 +1,6 @@
 package org.chat.investpro;
 
-public class ConcreteSpaargeld implements IspaargeldFactory{
+public class ConcreteSpaargeldFactory implements IspaargeldFactory{
     @Override
     public IspaarGeld createIspaarGeld(double aantal) {
         return new SpaarGeld(aantal);

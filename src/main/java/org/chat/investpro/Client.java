@@ -1,27 +1,17 @@
 package org.chat.investpro;
 
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Client {
 
     private static DataManager dataManager;
-    private static IinvesteeringsVormFactory factoryInvesteeringsVorm = new ConcreteFactory();
-    private static IspaargeldFactory spaargeldFactory = new ConcreteSpaargeld();
-    private DataUser user = DataUser.getInstance();;
     static Scanner scanner;
-    private static boolean running = true;
-    private static boolean runningChoice = true;
     private static Menu menu;
-    private static MenuActions menuActions;
-    private static PortofolioMenuActions portMenu;
 
     public Client () {
         scanner = new Scanner(System.in);
-        dataManager = new DataManager(factoryInvesteeringsVorm, spaargeldFactory, user, scanner);
+        dataManager = new DataManager(scanner);
         menu = new Menu();
-        menuActions = new MenuActions(menu);
-        portMenu = new PortofolioMenuActions(menu);
     }
 
     private static void terugNaarHoofdmenu(){
@@ -35,17 +25,23 @@ public class Client {
     }
 
     public void menuStart() {
+        MenuActions menuActions = new MenuActions(menu);
+        boolean running = true;
         while (running) {
+            clearScreen();
             menu.displayMainMenu();
             System.out.println("Voer uw keuze in:");
             int choice = scanner.nextInt();
             scanner.nextLine();
             if (choice == 1) viewPortfolioMenu();
             else menuActions.executeMainMenuAction(choice, dataManager, scanner);
+            terugNaarHoofdmenu();
         }
     }
 
     private static void viewPortfolioMenu() {
+        PortofolioMenuActions portMenu = new PortofolioMenuActions(menu);
+        boolean runningChoice = true;
         clearScreen();
         while (runningChoice) {
             clearScreen();
@@ -55,6 +51,7 @@ public class Client {
             var keuze = scanner.nextInt();
             scanner.nextLine();
             portMenu.executePortofolioAction(keuze, dataManager, scanner);
+            if (keuze == 6) runningChoice = false;
         }
     }
 }

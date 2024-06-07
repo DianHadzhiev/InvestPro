@@ -7,19 +7,18 @@ import java.util.Scanner;
 
 @Data
 public class DataManager {
-    private static IinvesteeringsVormFactory factoryInvesteeringsVorm;
+
     private static IspaargeldFactory spaargeldFactory;
     private DataUser user;
     private Scanner scanner;
 
-    public DataManager(IinvesteeringsVormFactory factoryInvesteeringsVorm, IspaargeldFactory spaargeldFactory, DataUser user,Scanner scanner) {
-        this.factoryInvesteeringsVorm = factoryInvesteeringsVorm;
-        this.spaargeldFactory = spaargeldFactory;
-        this.user = user;
+    public DataManager(Scanner scanner) {
+        user = DataUser.getInstance();
         this.scanner = scanner;
     }
 
     public void addVorm(Scanner scanner, String vorm) {
+        IinvesteeringsVormFactory factoryInvesteeringsVorm = new ConcreteFactory();
         System.out.println("Welke " + vorm + " wilt u toevoegen?");
         String naam = scanner.nextLine();
         System.out.println("Hoeveel " + vorm + " wilt u toevoegen?");
@@ -50,12 +49,11 @@ public class DataManager {
     }
 
     public void addspaargeld(Scanner scanner) {
+        spaargeldFactory = new ConcreteSpaargeldFactory();
         System.out.println("Hoeveel wilt u toevoegen?");
         double aantal = scanner.nextDouble();
-        IspaarGeld nieuwspaargeld = user.getSpaargeld();
-        nieuwspaargeld.setAantal(nieuwspaargeld.getAantal() + aantal);
-        user.updateSpaargeld(nieuwspaargeld);
-
+        IspaarGeld spaargeld = spaargeldFactory.createIspaarGeld(aantal + user.getTotalspaargeld());
+        user.updateSpaargeld(spaargeld);
         System.out.println("Succesvol toegevoegd");
     }
 
@@ -100,6 +98,12 @@ public class DataManager {
             System.out.println(vorm.getNaam() + ": " + vorm.getAantal());
         }
         scanner.nextLine();
+    }
+
+    public void viewSpaargeld() {
+        System.out.println("Spaargeld: ");
+        System.out.println(user.getTotalspaargeld());
+        System.out.println();
     }
 
 }
