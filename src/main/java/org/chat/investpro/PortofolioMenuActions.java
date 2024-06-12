@@ -7,8 +7,7 @@ import java.util.Scanner;
 public class PortofolioMenuActions {
     private final Map<Integer, PortofolioMenuAction> PortofolioActions = new HashMap<>();
 
-
-    public PortofolioMenuActions(Menu menu) {
+    public PortofolioMenuActions() {
         putPortofolioActions();
     }
 

@@ -8,6 +8,9 @@ public class Client {
     static Scanner scanner;
     private static Menu menu;
 
+    /**
+     * client class to start up application
+     */
     public Client () {
         scanner = new Scanner(System.in);
         dataManager = new DataManager(scanner);
@@ -25,7 +28,7 @@ public class Client {
     }
 
     public void menuStart() {
-        MenuActions menuActions = new MenuActions(menu);
+        MenuActions menuActions = new MenuActions();
         boolean running = true;
         while (running) {
             clearScreen();
@@ -40,7 +43,7 @@ public class Client {
     }
 
     private static void viewPortfolioMenu() {
-        PortofolioMenuActions portMenu = new PortofolioMenuActions(menu);
+        PortofolioMenuActions portMenu = new PortofolioMenuActions();
         boolean runningChoice = true;
         clearScreen();
         while (runningChoice) {

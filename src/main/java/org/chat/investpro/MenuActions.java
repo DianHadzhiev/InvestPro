@@ -7,11 +7,8 @@ import java.util.Scanner;
 public class MenuActions {
     private final Map<Integer, MenuAction> MainMenuActions = new HashMap<>();
 
-    private final Menu menu;
-
-    public MenuActions(Menu menu) {
+    public MenuActions() {
         putMainMenuActions();
-        this.menu = menu;
     }
 
     public void putMainMenuActions() {

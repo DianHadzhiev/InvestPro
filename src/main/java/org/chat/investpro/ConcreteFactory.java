@@ -1,6 +1,17 @@
 package org.chat.investpro;
 
 public class ConcreteFactory implements IinvesteeringsVormFactory{
+
+    /**
+     *
+     *
+     * @param type
+     * @param naam
+     * @param waardeBijaankoop
+     * @param aantal
+     * @param aankoopPrijs
+     * @return IinvesteeringsVorm
+     */
     @Override
     public IinvesteeringsVorm createInvesteeringsVorm(String type, String naam, double waardeBijaankoop, double aantal, double aankoopPrijs) {
         switch (type.toLowerCase()) {
@@ -16,4 +27,5 @@ public class ConcreteFactory implements IinvesteeringsVormFactory{
                 throw new IllegalArgumentException("onbekende type: " + type);
         }
     }
+
 }

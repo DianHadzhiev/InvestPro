@@ -37,8 +37,6 @@ public class CsvEditor {
             bw.close();
             fw.close();
 
-
-
             if (!oldfile.delete()) {
                 System.out.println("Failed to delete the old file.");
                 return;
@@ -51,4 +49,5 @@ public class CsvEditor {
             System.out.println(e);
         }
     }
+
 }
