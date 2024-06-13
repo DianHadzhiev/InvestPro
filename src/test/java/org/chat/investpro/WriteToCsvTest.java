@@ -37,4 +37,5 @@ public class WriteToCsvTest {
     private void closeAndDeleteFile(Path path) throws IOException {
         Files.delete(path);
     }
+
 }
