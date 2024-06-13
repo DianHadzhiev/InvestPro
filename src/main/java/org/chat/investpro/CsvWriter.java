@@ -10,7 +10,7 @@ public class CsvWriter {
         try {
             String filePath = vorm + ".csv";
             CSVWriter csvWriter = new CSVWriter((new FileWriter(filePath, true)));
-            String[] data = {String.valueOf(object.naam), String.valueOf(object.waardeBijaankoop), String.valueOf(object.aankoopPrijs), String.valueOf(object.aantal)};
+            String[] data = {String.valueOf(object.naam), String.valueOf(object.waardeBijAankoop), String.valueOf(object.aankoopPrijs), String.valueOf(object.aantal)};
 
             csvWriter.writeNext(data);
             System.out.println();

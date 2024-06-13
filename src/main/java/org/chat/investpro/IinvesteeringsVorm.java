@@ -12,13 +12,13 @@ public abstract class IinvesteeringsVorm {
      * aankoopPrijs is hoeveel er betaald is bij het transactie.
      *
      */
-    protected double aantal, waardeBijaankoop, aankoopPrijs;
+    protected double aantal, waardeBijAankoop, aankoopPrijs;
     protected String naam;
 
-    public IinvesteeringsVorm(String naam, double aantal, double waardeBijaankoop, double aankoopPrijs) {
+    public IinvesteeringsVorm(String naam, double aantal, double waardeBijAankoop, double aankoopPrijs) {
         this.naam = naam;
         this.aantal = aantal;
-        this.waardeBijaankoop = waardeBijaankoop;
+        this.waardeBijAankoop = waardeBijAankoop;
         this.aankoopPrijs = aankoopPrijs;
     }
 
