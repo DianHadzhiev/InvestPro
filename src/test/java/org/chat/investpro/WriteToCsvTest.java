@@ -20,6 +20,7 @@ public class WriteToCsvTest {
     public void setUp() {
         writer = new CsvWriter();
     }
+
     @Test
     public void testWriteToCSV_ValidObjectAndValidVorm() throws IOException {
         IinvesteeringsVorm object = mock(IinvesteeringsVorm.class);
